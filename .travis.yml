@@ -289,8 +289,8 @@ jobs:
         - npm run native test:e2e:build-app:android
       before_script:
         # Wait for emulator to be ready
-        - chmod +x ./bin/android-wait-for-emulator.sh
-        - ./bin/android-wait-for-emulator.sh
+        - chmod +x ./packages/react-native-editor/bin/android-wait-for-emulator.sh
+        - ./packages/react-native-editor/bin/android-wait-for-emulator.sh
         - adb shell input keyevent 82 &
       script:
         - npm run native test:e2e:install-app:android
