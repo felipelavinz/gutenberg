@@ -2,6 +2,8 @@
  * WordPress dependencies
  */
 import { __experimentalTreeGridCell as TreeGridCell } from '@wordpress/components';
+import { useInstanceId } from '@wordpress/compose';
+import { __, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -18,6 +20,16 @@ export default function BlockNavigationAppenderRow( {
 	terminatedLevels,
 	path,
 } ) {
+	const instanceId = useInstanceId( BlockNavigationAppenderRow );
+	const descriptionId = `block-navigation-appender-row__description_${ instanceId }`;
+
+	const appenderPositionDescription = sprintf(
+		/* translators: 1: The numerical position of the block. 2: The total number of blocks. 3. The level of nesting for the block. */
+		__( 'Insert block at position %1$d, Level %2$d' ),
+		position,
+		level
+	);
+
 	return (
 		<BlockNavigationRow
 			level={ level }
@@ -39,8 +51,15 @@ export default function BlockNavigationAppenderRow( {
 						<ButtonBlockAppender
 							rootClientId={ parentBlockClientId }
 							__experimentalSelectBlockOnInsert={ false }
+							aria-describedBy={ descriptionId }
 							{ ...props }
 						/>
+						<div
+							className="block-editor-block-navigation-appender-row__description"
+							id={ descriptionId }
+						>
+							{ appenderPositionDescription }
+						</div>
 					</div>
 				) }
 			</TreeGridCell>
