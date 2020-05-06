@@ -51,7 +51,7 @@ export default function BlockNavigationAppenderRow( {
 						<ButtonBlockAppender
 							rootClientId={ parentBlockClientId }
 							__experimentalSelectBlockOnInsert={ false }
-							aria-describedBy={ descriptionId }
+							aria-describedby={ descriptionId }
 							{ ...props }
 						/>
 						<div
