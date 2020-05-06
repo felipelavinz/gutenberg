@@ -231,7 +231,7 @@ jobs:
         - ANDROID_API=29
         - ANDROID_AUDIO=-no-audio
         - ANDROID_ABI=x86_64 # or armeabi-v7a
-        - ANDROID_EMU_FLAVOR=default # or google_apis
+        - ANDROID_EMU_FLAVOR=google_apis # or default
       before_install:
         - java -version
 
@@ -275,14 +275,15 @@ jobs:
         - yes | sdkmanager "system-images;android-$ANDROID_API;$ANDROID_EMU_FLAVOR;$ANDROID_ABI" >/dev/null # install our emulator
 
         # Create an Android emulator
-        - echo no | avdmanager create avd --force -n test -k "system-images;android-$ANDROID_API;$ANDROID_EMU_FLAVOR;$ANDROID_ABI" -c 10M
+        - echo no | avdmanager create avd --force --name "Pixel3XL_10" -k "system-images;android-$ANDROID_API;$ANDROID_EMU_FLAVOR;$ANDROID_ABI" -c 10M
+        - printf "\nhw.lcd.height=2960\nhw.lcd.width=1440\nhw.lcd.density=480\nskin.name=1440x2960" >> /home/travis/.android/avd/Pixel_API_29_AOSP.avd/config.ini
         - |
           EMU_PARAMS="-verbose -no-snapshot -no-window -camera-back none -camera-front none -selinux permissive -qemu -m 2048"
           EMU_COMMAND="emulator"
           # This double "sudo" monstrosity is used to have Travis execute the
           # emulator with its new group permissions and help preserve the rule
           # of least privilege.
-          sudo -E sudo -u $USER -E bash -c "${ANDROID_HOME}/emulator/${EMU_COMMAND} -avd test ${ANDROID_AUDIO} ${EMU_PARAMS} &"
+          sudo -E sudo -u $USER -E bash -c "${ANDROID_HOME}/emulator/${EMU_COMMAND} -avd Pixel3XL_10 ${ANDROID_AUDIO} ${EMU_PARAMS} &"
 
         # Build the app (while the emulator is starting)
         - npm ci --no-progress
