@@ -25,10 +25,10 @@ exports.iosServer = {
 	deviceName: 'iPhone 11 Simulator',
 };
 
-exports.android8 = {
+exports.android10 = {
 	browserName: '',
 	platformName: 'Android',
-	platformVersion: '10.0',
+	platformVersion: '10',
 	deviceName: 'test',
 	automationName: 'UiAutomator2',
 	os: 'Android',

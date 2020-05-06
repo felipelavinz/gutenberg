@@ -218,7 +218,7 @@ jobs:
       sudo: true
       env:
         - TEST_RN_PLATFORM=android
-        - TEST_ENV=sauce
+        - TEST_ENV=local
         - JEST_JUNIT_OUTPUT="reports/test-results/android-test-results.xml"
         - ANDROID_TOOLS_URL="https://dl.google.com/android/repository/sdk-tools-linux-4333796.zip"
         - ANDROID_HOME=${HOME}/android-sdk
