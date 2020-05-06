@@ -92,6 +92,10 @@ $tree-item-height: 36px;
 	}
 }
 
+.block-editor-block-navigation-row__description {
+	display: none;
+}
+
 .block-editor-block-navigation-row__select-cell,
 .block-editor-block-navigation-row__appender-cell {
 	.block-editor-block-navigation-row__select-container,

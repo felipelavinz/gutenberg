@@ -9,13 +9,15 @@ import classnames from 'classnames';
 import {
 	Button,
 	__experimentalTreeGridCell as TreeGridCell,
+	VisuallyHidden,
 } from '@wordpress/components';
+import { useInstanceId } from '@wordpress/compose';
 import {
 	__experimentalGetBlockLabel as getBlockLabel,
 	getBlockType,
 } from '@wordpress/blocks';
 import { useState } from '@wordpress/element';
-import { __ } from '@wordpress/i18n';
+import { __, sprintf } from '@wordpress/i18n';
 
 /**
  * Internal dependencies
@@ -39,6 +41,8 @@ export default function BlockNavigationBlockRow( {
 	terminatedLevels,
 	path,
 } ) {
+	const instanceId = useInstanceId( BlockNavigationBlockRow );
+	const descriptionId = `block-navigation-block-row__description_${ instanceId }`;
 	const [ isHovered, setIsHovered ] = useState( false );
 	const [ isFocused, setIsFocused ] = useState( false );
 	const { name, clientId, attributes } = block;
@@ -46,12 +50,21 @@ export default function BlockNavigationBlockRow( {
 	const blockDisplayName = getBlockLabel( blockType, attributes );
 
 	// Subtract 1 from rowCount, as it includes the block appender.
-	const hasSiblings = rowCount - 1 > 1;
+	const siblingCount = rowCount - 1;
+	const hasSiblings = siblingCount > 1;
 	const hasRenderedMovers = showBlockMovers && hasSiblings;
 	const hasVisibleMovers = isHovered || isSelected || isFocused;
 	const moverCellClassName = classnames(
 		'block-editor-block-navigation-row__mover-cell',
 		{ 'is-visible': hasVisibleMovers }
+	);
+
+	const blockPositionDescription = sprintf(
+		/* translators: 1: The numerical position of the block. 2: The total number of blocks. 3. The level of nesting for the block. */
+		__( 'Block %1$d of %2$d, Level %3$d' ),
+		position,
+		siblingCount,
+		level
 	);
 
 	return (
@@ -82,16 +95,23 @@ export default function BlockNavigationBlockRow( {
 						<Button
 							className="block-editor-block-navigation-row__select-button"
 							onClick={ onClick }
+							aria-describedby={ descriptionId }
 							{ ...props }
 						>
 							<BlockIcon icon={ blockType.icon } showColors />
 							{ blockDisplayName }
 							{ isSelected && (
-								<span className="screen-reader-text">
+								<VisuallyHidden>
 									{ __( '(selected block)' ) }
-								</span>
+								</VisuallyHidden>
 							) }
 						</Button>
+						<div
+							className="block-editor-block-navigation-row__description"
+							id={ descriptionId }
+						>
+							{ blockPositionDescription }
+						</div>
 					</div>
 				) }
 			</TreeGridCell>
