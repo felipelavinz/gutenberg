@@ -170,7 +170,7 @@ function gutenberg_get_post_from_context() {
 		return null;
 	}
 
-	_deprecated_function( __FUNCTION__, '8.0.0' );
+	_deprecated_function( __FUNCTION__, '8.1.0' );
 
 	if ( ! in_the_loop() ) {
 		rewind_posts();
