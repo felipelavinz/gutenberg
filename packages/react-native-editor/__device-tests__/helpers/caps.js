@@ -28,7 +28,7 @@ exports.iosServer = {
 exports.android8 = {
 	browserName: '',
 	platformName: 'Android',
-	platformVersion: '10',
+	platformVersion: '10.0',
 	deviceName: 'test',
 	automationName: 'UiAutomator2',
 	os: 'Android',
