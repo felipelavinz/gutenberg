@@ -275,8 +275,7 @@ jobs:
         - yes | sdkmanager "system-images;android-$ANDROID_API;$ANDROID_EMU_FLAVOR;$ANDROID_ABI" >/dev/null # install our emulator
 
         # Create an Android emulator
-        - echo no | avdmanager create avd --force --name "Pixel3XL_10" -d pixel -k "system-images;android-$ANDROID_API;$ANDROID_EMU_FLAVOR;$ANDROID_ABI" -c 10M
-        - printf "\nhw.lcd.height=2960\nhw.lcd.width=1440\nhw.lcd.density=480\nskin.name=1440x2960" >> /home/travis/.android/avd/Pixel_API_29_AOSP.avd/config.ini
+        - echo no | avdmanager create avd --force --name "Pixel3XL_10" -d "pixel_3_xl" -k "system-images;android-$ANDROID_API;$ANDROID_EMU_FLAVOR;$ANDROID_ABI" -c 10M
         - |
           EMU_PARAMS="-verbose -no-snapshot -no-window -camera-back none -camera-front none -selinux permissive -qemu -m 2048"
           EMU_COMMAND="emulator"
