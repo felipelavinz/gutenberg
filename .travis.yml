@@ -286,7 +286,7 @@ jobs:
 
         # Build the app (while the emulator is starting)
         - npm ci --no-progress
-        - npm run native clean
+        - rm -f $HOME/.gradle/caches
         - npm run native test:e2e:build-app:android
       before_script:
         # Wait for emulator to be ready
